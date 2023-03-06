@@ -1,0 +1,176 @@
+/**
+-------------------------------------------------------------
+	Stylesheet für: http://www.conrad.nl/
+	Medien:         Bildschirme
+	Autor:          Michael Che Mafor
+------------------------------------------------------------- */
+#cookieconsentscreen {
+	padding: 0 1px;
+	border: 2px solid #0098DD;
+	margin: 0 auto;
+	position: fixed;
+	z-index: 8000;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	background-color: #E6E6E6;
+	padding-bottom: 5px;
+}
+
+#cookieconsentscreen a {
+	color: #0098DD;
+	text-decoration: underline;
+}
+
+.cookielink {
+	color: #BCBCBC;
+	text-decoration: underline;
+}
+
+#cookiewarnscreen {
+	background-color: #FFFFFF;
+	padding: 5px 20px 20px 5px;
+	border: 1px solid #0098DD;
+	border-bottom-right-radius: 14px;
+	border-top-right-radius: 11px;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 999;
+	box-shadow: 4px 3px 2px #323232;
+	display: none;
+}
+
+input.greenbtn {
+	background: none;
+    background-color: #92B901;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 1px;
+    outline: 1px solid #92B901;
+    padding: 3px 0 4px;
+    text-align: center;
+    text-decoration: none;
+    width: 120px;
+    height : 25px;
+    cursor: pointer;
+}
+
+input.akkoordbtn {
+	background : url("/images/default/default/akkoord.gif") no-repeat center center;
+	width : 111px;
+	height : 25px;
+	border : none;
+	color : transparent;
+	font-size : 0;
+	cursor: pointer;
+}
+
+input.accepterenbtn {
+	background : url("/images/default/default/accepteren.gif") no-repeat center center;
+	width : 200px;
+	height : 30px;
+	border : none;
+	color : transparent;
+	font-size : 0;
+	cursor: pointer;
+}
+
+#cookieOverlay {
+	position:fixed; 
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:#000;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	z-index: 999;
+}
+
+#cookieModalWindow {
+	position:absolute;
+	background-color: #FFFFFF;
+	opacity:0.95;
+	filter:alpha(opacity=95);
+	border-radius:14px;
+	padding:8px;
+	z-index: 9999;
+	border: 4px solid #0098DD;
+}
+
+#cookieModalContent {
+	border-radius:8px;
+	padding:10px;
+	font-size: 12px;
+}
+
+/* CSS for Cookie Opt-Out Version */
+
+#cookie_box_header {
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #000000;
+	left: 0;
+	top: -2px;
+	z-index: 20;
+}
+
+#cookie_box_header.fixed {
+	position: fixed;
+	width: 100%;
+}
+
+#cookie_box_header_message {
+	background-color: #333333;
+	height: 36px;
+}
+
+#cookie_box_header_message .content {
+	color: #CCCCCC;
+	font-size: 12px;
+	line-height: 36px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#cookie_box_header_message .content .message {
+	float: left;
+}
+
+#cookie_box_header_message .content a {
+    color: #CCCCCC;
+    text-decoration: underline;
+}
+
+#cookie_box_header_message .content a:hover {
+    color: #EEEEEE;
+}
+
+#cookie_box_header_message .content .remove_cookie_box a {
+    background: url("/images/default/default/cookie_box_close_btn.png") no-repeat scroll right 0 transparent;
+    padding: 2px 20px 2px 0;
+}
+
+#cookie_box_header_message .content .remove_cookie_box a:hover {
+	background-position: right -20px;
+}
+
+#cookie_box_header_message .content .remove_cookie_box {
+	float: right;
+}
+
+.panel_994 {
+	width: 994px;
+}
+
+.cookie_box_shadow {
+	box-shadow: 0 2px 2px #EEEEEE;
+}
+
+.clear_all {
+	clear: both;
+	display: block;
+}

@@ -1,0 +1,112 @@
+jQuery(document).ready(function () {
+    jQuery.support.cors = true;
+    const $ = jQuery
+
+
+    if (isCrossDocking() || maintenanceMode()) {
+        return;
+    }
+    env = 'prod';
+
+    $('.addToCart .addToCartBtnYellow').before('<div style="display:block; margin-bottom: 10px"><div id="oyst-1click-button" data-color="#0097D5" data-smart="true" data-rounded="true" data-height="40px" data-width="180px"></div></div>')
+    $('body').append('<script src="https://cdn.oyst.com/1click/script/script.min.js"></script>')
+
+    window.__OYST__ = window.__OYST__ || {}
+    window.__OYST__.getOneClickURL = function (cb, opts) {
+        $(function () {
+            var data = {}
+
+
+            var products = [];
+            var preload = 'no';
+            if (opts.preload) {
+                preload = 'yes';
+            }
+
+
+            var ref = $('div.number > span > strong').text();
+            var newRef = cleanRef(ref);
+
+            var qty = $('input.amount').val();
+            var product = {
+                reference: newRef,
+                quantity: qty
+            };
+
+            products.push(product);
+
+            data.env = env;
+            data.event = 'get.authorize';
+            data.products = products;
+            data.preload = preload;
+
+            if (tc_vars["user_id"].length > 0 && 'N' !== tc_vars["user_id"]) {
+                data.userId = tc_vars["user_id"];
+            }
+
+
+            jQuery.ajax({
+                url: "https://conrad.oyst.com/gateway.php",
+
+                data: JSON.stringify(data),
+                type: "POST",
+                timeout: 30000,
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    //data = JSON.parse(data);
+                    cb(null, data.url);
+                    console.log(data.url);
+                },
+                error: function (jqXHR, textStatus, ex) {
+                    var err = true;
+                    cb(err);
+                    console.log(textStatus + "," + ex + "," + jqXHR.responseText);
+                }
+            });
+        })
+    }
+
+
+    function cleanRef(ref) {
+        return ref.substring(0, ref.indexOf("-"))
+    }
+
+
+    function isCrossDocking() {
+        var delayHtml = $('#mc_info_lieferbarkeit').html();
+        var numbers = delayHtml.match(/\d+/g).map(Number);
+        var delay = numbers[numbers.length - 1];
+
+        if ($("div#mc_info_lieferbarkeit:contains('semaines')").length > 0) {
+            delay = delay * 7;
+        }
+
+        return (delay >= 10);
+    }
+
+    function maintenanceMode() {
+        var data = {}
+        var result = {}
+        data.event = 'get.activation'
+        jQuery.ajax
+        ({
+            data: JSON.stringify(data),
+            type: "POST",
+            timeout: 30000,
+            async: false,
+            dataType: "json",
+            url: 'https://conrad.oyst.com/gateway.php',
+            success: function (data) {
+                result = data.activation
+            },
+            failure: function () {
+                console.log("Can't verify status of activation")
+            }
+        });
+
+        return (result === 'deactivated')
+
+    }
+})
