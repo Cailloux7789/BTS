@@ -8,8 +8,8 @@ WiFiServer server(80);
 String header;
 String output26State = "off";
 String output27State = "off";
-const int output26 = 26;
-const int output27 = 27;
+const int output26 = 22;
+const int output27 = 23;
 
 void setup() {
   Serial.begin(115200);
@@ -36,14 +36,14 @@ void setup() {
 }
 
 void loop() {
-  WiFiClient client = server.available();  // Listen for incoming clients
-  if (client) {                            // If a new client connects,
-    Serial.println("New Client.");         // print a message out in the serial port
-      String currentLine = "";               // make a String to hold incoming data from the client
-    while (client.connected()) {           // loop while the client's connected
-      if (client.available()) {            // if there's bytes to read from the client,
-        char c = client.read();            // read a byte, then
-        Serial.write(c);                   // print it out the serial monitor
+  WiFiClient client = server.available();
+  if (client) {
+    Serial.println("New Client.");
+    String currentLine = "";
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        Serial.write(c);
         header += c;
         if (c == '\n') {
           if (currentLine.length() == 0) {
@@ -51,8 +51,7 @@ void loop() {
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-          }
-          break;
+            
             // turns the GPIOs on and off
             if (header.indexOf("GET /26/on") >= 0) {
               Serial.println("GPIO 26 on");
@@ -74,10 +73,19 @@ void loop() {
               output27State = "off";
               digitalWrite(output27, LOW);
             }
-          
+            
+            break;
+          }
+          currentLine = "";
+        }
+        else if (c != '\r') {
+          currentLine += c;
         }
       }
     }
+    header = "";
+      
+    
   
 
   client.println("<!DOCTYPE html><html>");
