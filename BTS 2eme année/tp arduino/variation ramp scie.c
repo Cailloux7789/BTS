@@ -9,9 +9,7 @@ void setup() {
 void loop() {
   for(lum=0; lum<= 255; lum+=51){
     analogWrite(led, lum);
-    delay(143);
+    delay(166);
   }
-  for(lum=255; lum>=255; lum++)
-  analogWrite(led, 0);
-  delay(0);
+
 }
