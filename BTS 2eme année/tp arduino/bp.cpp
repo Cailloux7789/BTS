@@ -10,23 +10,23 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(BP1) == HIGH) {
+  if (digitalRead(BP1) == LOW) {
     if (digitalRead(BP1) == HIGH) {
       lum += 25.5;
+      analogWrite(led, lum);
       if (lum > 255) {
-        analogWrite(led, lum);
+        analogWrite(led, 255);
       }
-      while (digitalRead(BP1) == HIGH) {}
     }
   }
 
   if (digitalRead(BP2) == LOW) {
-    if (digitalRead(BP2) == LOW) {
+    if (digitalRead(BP2) == HIGH) {
       lum -= 25.5;
+      analogWrite(led, lum);
       if (lum < 0) {
-        analogWrite(led, lum);
+        analogWrite(led, 0);
       }
-      while (digitalRead(BP2) == LOW) {}
     }
   }
 }
